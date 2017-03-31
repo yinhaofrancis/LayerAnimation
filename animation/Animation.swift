@@ -10,7 +10,7 @@ public class WaterLayer:CALayer{
     var color:CGColor = UIColor.blue.cgColor
     var process:CGFloat = 0
     var wave:CGFloat = 0
-    func makePath()->(CGPath,CGRect){
+    func makePath()->CGPath{
         let pathRect = self.bounds
         let path:CGMutablePath = CGMutablePath()
         path.move(to: CGPoint(x: pathRect.minX, y: pathRect.maxY))
@@ -24,7 +24,7 @@ public class WaterLayer:CALayer{
             i -= 1
         }
         path.closeSubpath()
-        return (path,pathRect)
+        return path
     }
     
     var function:(CGFloat,CALayer)->CGFloat = { x in
@@ -38,7 +38,7 @@ public class WaterLayer:CALayer{
     public override func draw(in ctx: CGContext) {
         let path = makePath()
         ctx.setFillColor(self.color)
-        ctx.addPath(path.0)
+        ctx.addPath(path)
         ctx.fillPath()
     }
     override init() {
